@@ -15,3 +15,6 @@ def test_multiplication_returns_a_new_quantity():
 def test_equality():
     assert Quantity(200) == Quantity(200)
     assert Quantity(200) != Quantity(300)
+
+def test_grams_are_not_ounces():
+    assert Quantity(1, "g") != Quantity(1, "oz")
