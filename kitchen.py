@@ -10,7 +10,10 @@ class Quantity:
         return Sum(self, other)
 
     def reduce(self, unit, converter=None):
+     if converter is None:
         return self
+
+     return converter.convert(self, unit)
 
     def __eq__(self, other):
         return (
@@ -35,5 +38,22 @@ class Sum:
 
 
 class Converter:
+    def __init__(self):
+        self.rates = {
+            ("oz", "g"): 28.35,
+            ("g", "oz"): 1 / 28.35,
+        }
+
+    def convert(self, quantity, unit):
+        if quantity.unit == unit:
+            return quantity
+
+        rate = self.rates[(quantity.unit, unit)]
+
+        return Quantity(
+            quantity.amount * rate,
+            unit
+        )
+
     def reduce(self, source, unit):
         return source.reduce(unit, self)
