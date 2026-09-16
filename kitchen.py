@@ -3,4 +3,4 @@ class Quantity:
         self.amount = amount
 
     def times(self, multiplier):
-        self.amount = 600
+        self.amount = self.amount * multiplier
